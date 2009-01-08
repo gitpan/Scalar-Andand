@@ -2,7 +2,7 @@ package Scalar::Andand;
 
 use strict;
 use warnings;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 my %args;
 BEGIN { %args = (SCALAR => ['Scalar::Andand::Scalar', 'autobox::Core::SCALAR'], UNDEF => 'Scalar::Andand::Undef') }
@@ -16,9 +16,7 @@ sub import {
 	goto &autobox::import;
 }
 
-package UNIVERSAL;
-
-sub andand {
+sub UNIVERSAL::andand {
 	my $var = shift;
 	return defined $var ? $var : $noop;
 }
