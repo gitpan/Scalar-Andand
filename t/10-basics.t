@@ -1,9 +1,9 @@
 #!perl -T
 
-use Test::More tests => 1;
+use Test::More tests => 2;
 use Scalar::Andand;
 
-for (Tester->new, undef) {
+for (Tester->new, undef, 4) {
 	$_->andand->do_something
 }
 
@@ -16,5 +16,8 @@ sub new {
 }
 
 sub do_something {
+	ok($_[0], "$_[0] is true");
+}
+sub Scalar::Andand::Scalar::do_something {
 	ok($_[0], "$_[0] is true");
 }

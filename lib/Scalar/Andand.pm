@@ -2,32 +2,25 @@ package Scalar::Andand;
 
 use strict;
 use warnings;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 my %args;
-BEGIN { %args = (SCALAR => ['Scalar::Andand::Scalar', 'autobox::Core::SCALAR'], UNDEF => 'Scalar::Andand::Undef') }
+BEGIN { %args = (SCALAR => [ 'Scalar::Andand::Scalar', 'autobox::Core::SCALAR' ], UNDEF => 'Scalar::Andand::Undef') }
 use autobox::Core %args;
 
-use Class::Null;
-my $noop = Class::Null->new;
-
 sub import {
-	push @_, %args; ##no critic unpack
-	goto &autobox::import;
+	push @_, %args;
+	goto &autobox::Core::import;
 }
 
 sub UNIVERSAL::andand {
-	my $var = shift;
-	return defined $var ? $var : $noop;
-}
-
-package Scalar::Andand::Scalar;
-
-sub andand {
 	return shift;
 }
 
 package Scalar::Andand::Undef;
+
+use Class::Null;
+my $noop = Class::Null->new;
 
 sub andand {
 	return $noop;
@@ -49,7 +42,7 @@ Version 0.01
 
 Scalar::andand lets us write:
 
- $phone = Location->find(:first, name => 'Johnson' )->andand->phone
+ $phone = Location->find('first', name => 'Johnson' )->andand->phone
 
 And get a guarded method invocation or safe navigation method. This snippet performs a C<find> on the Location class, then calls C<phone> to the result if the result is defined. If the result is not defined, then the expression returns false without throwing an exception. 
 
@@ -102,15 +95,11 @@ L<http://search.cpan.org/dist/Scalar-Andand>
 =back
 
 
-=head1 ACKNOWLEDGEMENTS
-
-
 =head1 COPYRIGHT & LICENSE
 
 Copyright 2009 Leon Timmermans, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
-
 
 =cut
