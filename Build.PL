@@ -8,14 +8,20 @@ my $builder = Module::Build->new(
     dist_author         => 'Leon Timmermans <leont@cpan.org>',
     dist_version_from   => 'lib/Scalar/Andand.pm',
     build_requires => {
-        'Test::More'    => 0,
+        'Test::More'      => 0,
+        'Test::Exception' => 0,
+        'Test::Warn'      => 0,
 	},
 	requires => {
 		'autobox::Core' => 0,
 		'Class::Null'   => 0,
     },
     add_to_cleanup      => [ 'Scalar-Andand-*' ],
-    create_makefile_pl => 'traditional',
+    create_makefile_pl  => 'traditional',
+	no_index            => {
+		'package'       => [ 'Scalar::Andand::Undef' ],
+	},
+	sign                => 1,
 );
 
 $builder->create_build_script();

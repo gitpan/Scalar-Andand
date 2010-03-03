@@ -2,28 +2,21 @@ package Scalar::Andand;
 
 use strict;
 use warnings;
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 my %args;
+use Scalar::Andand::Undef;
+use Scalar::Andand::Scalar;
 BEGIN { %args = (SCALAR => [ 'Scalar::Andand::Scalar', 'autobox::Core::SCALAR' ], UNDEF => 'Scalar::Andand::Undef') }
 use autobox::Core %args;
 
-sub import {
+sub import {    ## no critic RequireArgUnpacking
 	push @_, %args;
 	goto &autobox::Core::import;
 }
 
 sub UNIVERSAL::andand {
 	return shift;
-}
-
-package Scalar::Andand::Undef;
-
-use Class::Null;
-my $noop = Class::Null->new;
-
-sub andand {
-	return $noop;
 }
 
 1;
@@ -36,7 +29,7 @@ Scalar::Andand - Guarded method invocation.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.04
 
 =head1 SYNOPSIS
 
