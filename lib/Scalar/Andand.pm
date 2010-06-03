@@ -1,8 +1,10 @@
 package Scalar::Andand;
 
+use 5.008;
+
 use strict;
 use warnings;
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 my %args;
 use Scalar::Andand::Undef;
@@ -10,7 +12,7 @@ use Scalar::Andand::Scalar;
 BEGIN { %args = (SCALAR => [ 'Scalar::Andand::Scalar', 'autobox::Core::SCALAR' ], UNDEF => 'Scalar::Andand::Undef') }
 use autobox::Core %args;
 
-sub import {    ## no critic RequireArgUnpacking
+sub import {    ## no critic (RequireArgUnpacking)
 	push @_, %args;
 	goto &autobox::Core::import;
 }
@@ -33,7 +35,7 @@ Version 0.04
 
 =head1 SYNOPSIS
 
-Scalar::andand lets us write:
+Scalar::Andand lets us write:
 
  $phone = Location->find('first', name => 'Johnson' )->andand->phone
 
@@ -52,6 +54,8 @@ Leon Timmermans, C<< <leont at cpan.org> >>
 You have to include the module in every package where you use the magic C<andand> method, or else it doesn't work on undefined values.
 
 This module contains more magic than what is responsible, don't be surprised by weird bugs.
+
+Note that this module was intended as a proof of concept. The author has never used it in production code, nor is he planning to do so. YMMV.
 
 Please report any bugs or feature requests to C<bug-scalar-andand at rt.cpan.org>, or through
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Scalar-Andand>.  I will be notified, and then you'll
@@ -86,7 +90,6 @@ L<http://cpanratings.perl.org/d/Scalar-Andand>
 L<http://search.cpan.org/dist/Scalar-Andand>
 
 =back
-
 
 =head1 COPYRIGHT & LICENSE
 

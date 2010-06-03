@@ -1,21 +1,9 @@
 package Scalar::Andand::Scalar;
 
+use strict;
+use warnings;
+our $VERSION = 0.05;
+
+# Yes, this empty class is really necessary :-(
+
 1;
-
-=head1 NAME
-
-Scalar::Andand::Scakar - Guarded method invocation on scalar values
-
-=head1 VERSION
-
-Version 0.04
-
-=head1 FUNCTIONS
-
-=over 4
-
-=item * andand
-
-=back
-
-=cut
